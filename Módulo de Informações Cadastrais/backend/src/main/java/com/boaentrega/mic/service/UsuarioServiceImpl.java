@@ -1,7 +1,6 @@
 package com.boaentrega.mic.service;
 
 import com.boaentrega.mic.domain.entity.Usuario;
-import com.boaentrega.mic.exception.UsuarioInvalidoException;
 import com.boaentrega.mic.repository.UsuarioRepository;
 import com.boaentrega.mic.security.UsuarioData;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,7 +19,7 @@ public class UsuarioServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Usuario usuario = usuarioRepository.getFirstByNomeIsLike(username);
+        Usuario usuario = usuarioRepository.getFirstByLoginIsLike(username);
         if (usuario==null) {
             throw new UsernameNotFoundException(String.format(MSG_USUARIO_NAO_ENCONTRADO, username));
         }

@@ -12,12 +12,38 @@ code {
     monospace;
 }
 
-h1 { color: #363535; font-family: 'Arial', sans-serif; font-size: 28px; 
-  font-weight: 300; margin: 20px 0 5px; }
+h1 { color: #363535; 
+  font-family: 'Arial', sans-serif; 
+  font-size: 28px; 
+  font-weight: 300; margin: 20px 0 5px; 
+}
 
 h6 {
   font-size: 1.25rem;
   line-height: 1.6;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   margin: 0;
+}
+
+.titulo-secao {
+  text-align: center;
+  margin: auto;
+  border: 2px solid #1976d2;
+  border-radius: 15px;
+  padding: 10px;
+  color: white;
+  background-color: #1976d2;
+  display: block;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.campo-linha-unica {
+  display: block;
+  width: 100%;
+  margin-right: 20px;
+}
+
+.mr-10 {
+  margin-right: 10px;
 }

@@ -2,7 +2,6 @@ package com.boaentrega.mic.security;
 
 import com.auth0.jwt.JWT;
 import com.boaentrega.mic.domain.entity.Usuario;
-import com.boaentrega.mic.repository.ClienteRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -20,7 +19,7 @@ import java.util.Date;
 
 public class JWTAutenticarFilter extends UsernamePasswordAuthenticationFilter {
 
-    public static final int TOKEN_EXPIRACAO = 600_000;
+    public static final int TOKEN_EXPIRACAO = 600_000_000;
     public static final String TOKEN_SENHA = "4afdace7-994c-4cc8-9585-d10de342a7c4";
 
     private final AuthenticationManager authenticationManager;
@@ -39,11 +38,8 @@ public class JWTAutenticarFilter extends UsernamePasswordAuthenticationFilter {
         try {
             Usuario usuario = new ObjectMapper()
                     .readValue(request.getInputStream(), Usuario.class);
-
-            String senha = encoder.encode(usuario.getSenha());
-
             return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                    usuario.getNome(),
+                    usuario.getLogin(),
                     usuario.getSenha(),
                     new ArrayList<>()
             ));

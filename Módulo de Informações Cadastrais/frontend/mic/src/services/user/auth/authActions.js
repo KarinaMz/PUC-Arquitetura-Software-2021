@@ -3,16 +3,17 @@ import axios from "axios";
 
 const AUTH_URL = "http://localhost:8080/login";
 
-export const authenticateUser = (email, password) => async (dispatch) => {
+export const authenticateUser = (login, password) => async (dispatch) => {
   dispatch(loginRequest());
   try {
     const response = await axios.post(AUTH_URL, {
-      nome: email,
+      login: login,
       senha: password,
     });
     localStorage.setItem("jwtToken", response.data);
     localStorage.setItem("isLoggedIn", true);
-    dispatch(success({ username: email, isLoggedIn: true }));
+    localStorage.setItem("username", login);
+    dispatch(success({ username: login, isLoggedIn: true }));
     return Promise.resolve(response.data);
   } catch (error) {
     dispatch(failure());
@@ -25,6 +26,7 @@ export const logoutUser = () => {
     dispatch(logoutRequest());
     localStorage.removeItem("jwtToken");
     localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("username");
     dispatch(success({ username: "", isLoggedIn: false }));
   };
 };

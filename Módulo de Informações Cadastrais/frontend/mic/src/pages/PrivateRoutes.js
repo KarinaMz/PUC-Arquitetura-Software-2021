@@ -4,11 +4,13 @@ import Home from './administrador/Home';
 import ListaClientes from './administrador/ListaClientes';
 import ListaDepositos from './administrador/ListaDepositos';
 import ListaMercadorias from './administrador/ListaMercadorias';
+import MinhaConta from "./MinhaConta";
 
 const Routes = () => {
     return (
         <Switch>
             <Route path="/home" component={Home}/>
+            <Route path="/minhaConta" component={MinhaConta}/>
             <Route path="/listaClientes" component={ListaClientes}/>
             <Route path="/listaDepositos" component={ListaDepositos}/>
             <Route path="/listaMercadorias" component={ListaMercadorias}/>

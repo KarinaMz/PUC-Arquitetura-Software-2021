@@ -29,7 +29,6 @@ create table MIC.MERCADORIA(
 	ME_NOME			varchar(200) not null,
 	ME_CODIGO		varchar(50),
 	ME_DESCRICAO	varchar(1000),
-	ME_QUANTIDADE	int,
 	ME_TIPO			varchar(20),
 	CL_ID_CLIENTE   int
 )
@@ -61,6 +60,7 @@ references MIC.MERCADORIA (ME_ID_MERCADORIA);
 
 create table MIC.USUARIO(
 	US_ID_USUARIO int not null identity(1,1) primary key,
+	US_LOGIN varchar(200) not null,
 	US_NOME  varchar(200) not null,
 	US_SENHA varchar(200) not null,
 	US_PERFIL	   varchar(10),

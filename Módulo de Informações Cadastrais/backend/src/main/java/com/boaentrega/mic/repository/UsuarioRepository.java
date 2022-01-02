@@ -6,5 +6,5 @@ import org.springframework.data.repository.query.Param;
 
 public interface UsuarioRepository extends CrudRepository<Usuario, Integer> {
 
-    Usuario getFirstByNomeIsLike(@Param("nome") String nome);
+    Usuario getFirstByLoginIsLike(@Param("login") String login);
 }

@@ -1,6 +1,6 @@
-import TableCell from '@material-ui/core/TableCell';
-import { withStyles } from '@material-ui/core/styles';
-import TableRow from '@material-ui/core/TableRow';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import { styled } from '@mui/material/styles';
+import TableRow from '@mui/material/TableRow';
 
 export function getDescricaoEndereco(endereco){
     var descricaoEndereco = endereco.logradouro + ' ' + endereco.numero;
@@ -11,20 +11,22 @@ export function getDescricaoEndereco(endereco){
     return descricaoEndereco;
   }
 
-export const StyledTableCell = withStyles((theme) => ({
-    head: {
+export const StyledTableCell = styled(TableCell)(({ theme }) => ({
+    [`&.${tableCellClasses.head}`]: {
       backgroundColor: theme.palette.common.white,
       color: theme.palette.common.black,
     },
-    body: {
+    [`&.${tableCellClasses.body}`]: {
       fontSize: 14,
-    }
-  }))(TableCell);
-  
-export const StyledTableRow = withStyles((theme) => ({
-    root: {
-      '&:nth-of-type(odd)': {
-        backgroundColor: theme.palette.action.hover,
-      },
     },
-  }))(TableRow);
+  }));
+
+export const StyledTableRow = styled(TableRow)(({ theme }) => ({
+    '&:nth-of-type(odd)': {
+      backgroundColor: theme.palette.action.hover,
+    },
+    // hide last border
+    '&:last-child td, &:last-child th': {
+      border: 0,
+    },
+  }));

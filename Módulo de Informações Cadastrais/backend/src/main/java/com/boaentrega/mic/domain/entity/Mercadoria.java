@@ -1,5 +1,7 @@
 package com.boaentrega.mic.domain.entity;
 
+import com.boaentrega.mic.domain.dto.MercadoriaDTO;
+
 import javax.persistence.*;
 
 @Entity
@@ -24,15 +26,19 @@ public class Mercadoria {
     @JoinColumn(name = "CL_ID_CLIENTE")
     private Cliente cliente;
 
-    @Column(name = "ME_QUANTIDADE")
-    private Integer quantidade;
-
     @Column(name = "ME_TIPO")
     @Enumerated(EnumType.STRING)
     private TipoMercadoria tipo;
 
     public Mercadoria(){
         super();
+    }
+
+    public void atualizarInformacoes(MercadoriaDTO mercadoriaDTO){
+        this.nome = mercadoriaDTO.getNome();
+        this.codigo = mercadoriaDTO.getCodigo();
+        this.descricao = mercadoriaDTO.getDescricao();
+        this.tipo = TipoMercadoria.valueOf(mercadoriaDTO.getTipo());
     }
 
     public String getNome() {
@@ -57,14 +63,6 @@ public class Mercadoria {
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
-    }
-
-    public Integer getQuantidade() {
-        return quantidade;
-    }
-
-    public void setQuantidade(Integer quantidade) {
-        this.quantidade = quantidade;
     }
 
     public TipoMercadoria getTipo() {

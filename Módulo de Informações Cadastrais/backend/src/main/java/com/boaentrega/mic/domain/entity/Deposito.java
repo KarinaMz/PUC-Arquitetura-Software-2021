@@ -25,6 +25,12 @@ public class Deposito {
         super();
     }
 
+    public void atualizarInformacoes(Deposito deposito){
+        this.codigo = deposito.getCodigo();
+        this.telefone = deposito.telefone;
+        this.endereco.atualizarInformacoes(deposito.getEndereco());
+    }
+
     public String getCodigo() {
         return codigo;
     }

@@ -1,25 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableContainer from '@material-ui/core/TableContainer';
-import TablePagination from "@material-ui/core/TablePagination";
-import TableHead from '@material-ui/core/TableHead';
-import Toolbar from "@material-ui/core/Toolbar";
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableContainer from '@mui/material/TableContainer';
+import TablePagination from "@mui/material/TablePagination";
+import TableHead from '@mui/material/TableHead';
+import Toolbar from "@mui/material/Toolbar";
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 import Clientes from '../services/api/clientes';
 import { getDescricaoEndereco, StyledTableCell, StyledTableRow } from './Utils';
 
 
-const useStyles = makeStyles({
-    table: {
-      textAlign: 'center'
-    },
-  });
-
 export default function TabelaClientes() {
-  const classes = useStyles();
   const [clientesData, setData] = useState([])
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [page, setPage] = React.useState(0);
@@ -46,11 +38,10 @@ export default function TabelaClientes() {
   return (
     <div>
       <TableContainer component={Paper}>
-        <Toolbar
-        className={classes.root}>
+        <Toolbar>
           <h6>Clientes</h6>
         </Toolbar>
-        <Table className={classes.table} aria-label="customized table">
+        <Table aria-label="customized table">
           <TableHead>
             <TableRow>
               <StyledTableCell align="left">CNPJ</StyledTableCell>

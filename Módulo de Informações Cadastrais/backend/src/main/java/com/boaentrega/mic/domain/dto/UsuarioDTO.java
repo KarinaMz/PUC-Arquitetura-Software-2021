@@ -5,12 +5,18 @@ import com.boaentrega.mic.domain.entity.Usuario;
 
 public class UsuarioDTO {
 
+    private String login;
     private String nome;
     private String senha;
     private String perfil;
     private Integer idCliente;
 
+    public UsuarioDTO(){
+        super();
+    }
+
     public UsuarioDTO(Usuario usuario){
+        this.login = usuario.getLogin();
         this.nome = usuario.getNome();
         this.perfil = usuario.getPerfil().name();
         this.idCliente = usuario.getCliente().getId();
@@ -46,5 +52,13 @@ public class UsuarioDTO {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
     }
 }

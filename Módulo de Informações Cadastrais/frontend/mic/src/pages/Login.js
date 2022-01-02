@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Grid, Paper, TextField, Avatar, Button } from "@material-ui/core";
-import KeyIcon from '@material-ui/icons/VpnKey';
+import { Grid, Paper, TextField, Avatar, Button } from "@mui/material";
+import KeyIcon from '@mui/icons-material/VpnKey';
 import { authenticateUser } from "../services/user/auth/authActions";
 
 const Login = (props) => {
     const initialState = {
-        email: "",
+        login: "",
         password: "",
       };
 
@@ -19,7 +19,7 @@ const Login = (props) => {
       };
     const dispatch = useDispatch();
     const validateUser = () => {
-        dispatch(authenticateUser(user.email, user.password))
+        dispatch(authenticateUser(user.login, user.password))
           .then((response) => {
             return props.history.push("/listaClientes");
           })
@@ -41,13 +41,13 @@ const Login = (props) => {
                     <h3>Módulo de Informações Cadastrais</h3>
                 </Grid>
                 <TextField label='Usuário' placeholder='Digite o usuário' 
-                    onChange={credentialChange} name="email"
-                    value={user.email} fullWidth required/>
+                    onChange={credentialChange} name="login"
+                    value={user.login} fullWidth required/>
                 <TextField label='Senha' placeholder='Digite a senha' type='password' 
                     onChange={credentialChange} name="password"
                     value={user.password} fullWidth required/>
                 <Button onClick={validateUser} type='submit' color='primary' variant="contained" 
-                    disabled={user.email.length === 0 || user.password.length === 0} 
+                    disabled={user.login.length === 0 || user.password.length === 0} 
                     style={btnstyle} fullWidth>Entrar</Button>
                     {show && error && (
                     <p style={{color: "red"}}>

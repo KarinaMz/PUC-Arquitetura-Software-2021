@@ -11,6 +11,9 @@ public class Usuario {
     @Column(name = "US_ID_USUARIO")
     private Integer id;
 
+    @Column(name = "US_LOGIN")
+    private String login;
+
     @Column(name = "US_NOME")
     private String nome;
 
@@ -67,5 +70,13 @@ public class Usuario {
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
     }
 }
