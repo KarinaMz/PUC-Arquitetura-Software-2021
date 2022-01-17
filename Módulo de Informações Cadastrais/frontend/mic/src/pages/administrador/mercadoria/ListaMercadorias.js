@@ -1,5 +1,4 @@
 import React from 'react';
-import TabelaMercadorias from '../../components/TabelaMercadorias';
 
 class ListaMercadorias extends React.Component {
 
@@ -8,7 +7,6 @@ class ListaMercadorias extends React.Component {
         <div>
             <h1>Lista Mercadorias Adm</h1>
             <p>Listar mercadorias indicando quanto tem em cada depósito nos detalhes.</p>
-            <TabelaMercadorias/>
         </div>);
     }
 }

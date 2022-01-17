@@ -1,5 +1,5 @@
 import React from 'react';
-import TabelaClientes from '../../components/TabelaClientes';
+import TabelaClientes from '../../../components/TabelaClientes';
 
 class ListaClientes extends React.Component {
 

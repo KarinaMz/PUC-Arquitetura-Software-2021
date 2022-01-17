@@ -6,7 +6,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import MenuUsuario from './MenuUsuario';
+import MenuUsuario from '../../components/MenuUsuario';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 

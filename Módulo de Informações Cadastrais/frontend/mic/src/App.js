@@ -1,30 +1,39 @@
 import React from 'react';
-import PrivateRoutes from './pages/PrivateRoutes';
 import PublicRoutes from './pages/PublicRoutes';
-import Menu from './components/BarraMenuAdm';
-import { BrowserRouter } from "react-router-dom";
+import MenuAdm from './pages/administrador/BarraMenuAdm';
+import MenuCliente from './pages/cliente/BarraMenuCliente'
+import { AdmRoutes, ClienteRoutes } from "./pages/PrivateRoutes";
 import { useSelector } from "react-redux";
 
 function App() {
-    const username = useSelector((state) => state.auth.username);
-    const isLoggedIn = localStorage.isLoggedIn;
+    const perfil = localStorage.perfil;
+    const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+    
     function AppPage() {
-        if (isLoggedIn) {
-            return (
-                <div>
-                    <BrowserRouter>
-                        <Menu /> 
+        if (isLoggedIn || perfil) {
+            console.log("Perfil app.js = "+perfil);
+            if(perfil==='Administrador'){
+                return (
+                    <div>
+                        <MenuAdm /> 
                         <div style={{padding: '50px 50px 0 50px'}}>
-                            <PrivateRoutes/>
+                            <AdmRoutes/>
                         </div>
-                    </BrowserRouter>
-                </div>);
+                    </div>);
+            } 
+            if(perfil==='Cliente'){
+                return (
+                    <div>
+                        <MenuCliente /> 
+                        <div style={{padding: '50px 50px 0 50px'}}>
+                            <ClienteRoutes/>
+                        </div>
+                    </div>);
+            }
         }
         return (
-        <BrowserRouter> 
             <PublicRoutes/>
-            )
-        </BrowserRouter>);
+        );
     }
 
     return (

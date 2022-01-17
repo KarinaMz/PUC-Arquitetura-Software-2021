@@ -6,6 +6,7 @@ import TablePagination from "@mui/material/TablePagination";
 import TableHead from '@mui/material/TableHead';
 import Toolbar from "@mui/material/Toolbar";
 import TableRow from '@mui/material/TableRow';
+import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import Clientes from '../services/api/clientes';
 import { getDescricaoEndereco, StyledTableCell, StyledTableRow } from './Utils';
@@ -39,7 +40,7 @@ export default function TabelaClientes() {
     <div>
       <TableContainer component={Paper}>
         <Toolbar>
-          <h6>Clientes</h6>
+          <Typography variant="h6" sx={{ flexGrow: 1 }}>Clientes</Typography>
         </Toolbar>
         <Table aria-label="customized table">
           <TableHead>

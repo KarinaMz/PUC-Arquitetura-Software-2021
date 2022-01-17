@@ -1,5 +1,5 @@
 import React from 'react';
-import TabelaDepositos from '../../components/TabelaDepositos';
+import TabelaDepositos from '../../../components/TabelaDepositos';
 
 class ListaDepositos extends React.Component {
 

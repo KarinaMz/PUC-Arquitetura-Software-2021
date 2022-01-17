@@ -1,5 +1,6 @@
 import * as AT from "./authTypes";
 import axios from "axios";
+import { getUsuario } from "../../api/usuario";
 
 const AUTH_URL = "http://localhost:8080/login";
 
@@ -13,7 +14,10 @@ export const authenticateUser = (login, password) => async (dispatch) => {
     localStorage.setItem("jwtToken", response.data);
     localStorage.setItem("isLoggedIn", true);
     localStorage.setItem("username", login);
-    dispatch(success({ username: login, isLoggedIn: true }));
+    const dadosUsuario = (await getUsuario()).data;
+    localStorage.setItem("idCliente", dadosUsuario.idCliente);
+    localStorage.setItem("perfil", dadosUsuario.perfil);
+    dispatch(success({ username: login, isLoggedIn: true, perfil:  dadosUsuario.perfil}));
     return Promise.resolve(response.data);
   } catch (error) {
     dispatch(failure());
@@ -27,7 +31,9 @@ export const logoutUser = () => {
     localStorage.removeItem("jwtToken");
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("username");
-    dispatch(success({ username: "", isLoggedIn: false }));
+    localStorage.removeItem("idCliente");
+    localStorage.removeItem("perfil");
+    dispatch(success({ username: "", isLoggedIn: false, perfil: "" }));
   };
 };
 
