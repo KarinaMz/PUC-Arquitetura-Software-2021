@@ -36,16 +36,6 @@ public class Endereco {
         super();
     }
 
-    public void atualizarInformacoes(Endereco endereco){
-        this.bairro = endereco.getBairro();
-        this.cep = endereco.getCep();
-        this.cidade = endereco.getCidade();
-        this.estado = endereco.getEstado();
-        this.logradouro = endereco.getLogradouro();
-        this.numero = endereco.getNumero();
-        this.complemento = endereco.getComplemento();
-    }
-
     public String getCep() {
         return cep;
     }

@@ -11,7 +11,6 @@ function App() {
     
     function AppPage() {
         if (isLoggedIn || perfil) {
-            console.log("Perfil app.js = "+perfil);
             if(perfil==='Administrador'){
                 return (
                     <div>

@@ -95,7 +95,7 @@ const MinhaConta = (props) => {
                             mask="(99)99999-9999"
                             value={dadosUsuario.telefone==null ? '' : dadosUsuario.telefone}
                             disabled={false}
-                            onChange={dadosChange}
+                            onChange={dadosChange} 
                             maskChar=" ">
                             {() => <TextField id="telefone"
                                     InputProps={{readOnly: fieldsReadOnly, disabled: fieldsReadOnly}}

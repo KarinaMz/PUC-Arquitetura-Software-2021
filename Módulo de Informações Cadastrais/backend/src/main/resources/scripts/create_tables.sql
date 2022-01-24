@@ -16,7 +16,7 @@ create table MIC.CLIENTE(
 	CL_ID_CLIENTE	int not null identity(1,1) primary key,
 	CL_CNPJ			varchar(14) not null,
 	CL_RAZAO_SOCIAL varchar(200) not null,
-	CL_TELEFONE		varchar(12),
+	CL_TELEFONE		varchar(15),
 	CL_EMAIL		varchar(100),
 	EN_ID_ENDERECO	int 
 )
@@ -40,7 +40,7 @@ create table MIC.DEPOSITO(
 	DE_ID_DEPOSITO int not null identity(1,1) primary key,
 	DE_CODIGO  varchar(50),
 	EN_ID_ENDERECO int not null,
-	DE_TELEFONE	   varchar(10)
+	DE_TELEFONE	   varchar(15)
 )
 
 alter table MIC.DEPOSITO add constraint FK_DE_EN foreign key (EN_ID_ENDERECO)

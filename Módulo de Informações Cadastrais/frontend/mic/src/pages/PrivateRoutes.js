@@ -13,6 +13,7 @@ import ListaMercadoriasCliente from './cliente/mercadoria/ListaMercadorias';
 import FormularioMercadoria from "./cliente/mercadoria/FormularioMercadoria";
 
 import MinhaConta from "./comum/MinhaConta";
+import FormularioMercadoriasDeposito from "./cliente/mercadoriaDeposito/FormularioMercadoriaDeposito";
 
 const AdmRoutes = () => {
     return (
@@ -36,6 +37,7 @@ const ClienteRoutes = () => {
             <Route path="/c/listaDepositos" component={ListaDepositosCliente}/>
             <Route path="/c/listaMercadorias" component={ListaMercadoriasCliente}/>
             <Route path="/c/formularioMercadoria" component={FormularioMercadoria}/>
+            <Route path="/c/formularioMercadoriaDeposito" component={FormularioMercadoriasDeposito}/>
         </Switch>
     )
 }

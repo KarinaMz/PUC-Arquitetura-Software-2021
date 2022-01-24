@@ -33,9 +33,9 @@ const FormularioMercadoria = (props) => {
             props.location.state.mercadoriaEdicao.tipo = tipo;
             setMercadoria(props.location.state.mercadoriaEdicao);
         } else {
-            setMercadoria({ ...mercadoria, idCliente:  5});
+            setMercadoria({ ...mercadoria, idCliente:  localStorage.idCliente});
         }
-    }, [props, mercadoria]);
+    }, [props]);
 
     function salvarMercadoria(){
         if(mercadoria.id!=null){

@@ -14,7 +14,7 @@ public class Deposito {
     @Column(name = "DE_CODIGO")
     private String codigo;
 
-    @ManyToOne(targetEntity = Endereco.class)
+    @ManyToOne(targetEntity = Endereco.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "EN_ID_ENDERECO")
     private Endereco endereco;
 
@@ -23,12 +23,6 @@ public class Deposito {
 
     public Deposito(){
         super();
-    }
-
-    public void atualizarInformacoes(Deposito deposito){
-        this.codigo = deposito.getCodigo();
-        this.telefone = deposito.telefone;
-        this.endereco.atualizarInformacoes(deposito.getEndereco());
     }
 
     public String getCodigo() {

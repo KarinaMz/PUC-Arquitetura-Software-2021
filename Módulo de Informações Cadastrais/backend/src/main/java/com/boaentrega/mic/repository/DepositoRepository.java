@@ -12,5 +12,8 @@ public interface DepositoRepository extends CrudRepository<Deposito, Integer> {
     @Query(value = "select distinct de from Deposito de left join fetch de.endereco order by de.codigo")
     List<Deposito> getAll();
 
-    Boolean existsDepositoByCodigo(@Param("codigo") String codigo);
+    @Query(value = "select case when (count(d) > 0) then true else false end " +
+            "from Deposito d where d.codigo = :codigo " +
+            "and (:id is null or d.id != :id)")
+    Boolean existsDepositoByCodigoAndId(@Param("codigo") String codigo, @Param("id") Integer id);
 }

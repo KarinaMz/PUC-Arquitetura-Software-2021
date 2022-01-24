@@ -10,6 +10,7 @@ const FormularioDeposito = (props) => {
     useEffect(() => {
         if(props.location.state && props.location.state.depositoEdicao){
             setDeposito(props.location.state.depositoEdicao);
+            console.log(props.location.state.depositoEdicao);
         } 
     }, [props]);
 
@@ -59,48 +60,48 @@ const FormularioDeposito = (props) => {
                     <p>Endereço</p>
                     <InputMask
                         mask="99999-999"
-                        value={deposito.endereco==null || deposito.endereco.cep==null ? '' : deposito.endereco.cep}
+                        value={deposito.cep==null ? '' : deposito.cep}
                         disabled={false}
                         onChange={dadosDepositoChange}
                         maskChar=" ">
-                        {() => <TextField id="cep" name='endereco.cep'
+                        {() => <TextField id="cep" name='cep'
                                 sx={{mb: 2, mr:2}}
                                 label="CEP" />
                         }
                     </InputMask>
                     <TextField id="cidade" 
                             inputProps={{maxLength: 100}}
-                            value={deposito.endereco==null || deposito.endereco.cidade==null ? '' : deposito.endereco.cidade}
-                            onChange={dadosDepositoChange} name='endereco.cidade'
+                            value={deposito.cidade==null ? '' : deposito.cidade}
+                            onChange={dadosDepositoChange} name='cidade'
                             label="Cidade" />
                     <TextField id="estado"
                             inputProps={{maxLength: 100}}
                             sx={{mb: 2, mr:2}}
-                            value={deposito.endereco==null || deposito.endereco.estado==null ? '' : deposito.endereco.estado}
-                            onChange={dadosDepositoChange} name='endereco.estado'
+                            value={deposito.estado==null ? '' : deposito.estado}
+                            onChange={dadosDepositoChange} name='estado'
                             label="Estado" />
                     <TextField id="bairro"
                             inputProps={{maxLength: 100}}
-                            value={deposito.endereco==null || deposito.endereco.bairro==null ? '' : deposito.endereco.bairro}
-                            onChange={dadosDepositoChange} name='endereco.bairro'
+                            value={deposito.bairro==null ? '' : deposito.bairro}
+                            onChange={dadosDepositoChange} name='bairro'
                             label="Bairro" />
                     <TextField id="logradouro"
                             inputProps={{maxLength: 300}}
                             sx={{mb: 2}}
                             className="campo-linha-unica"
-                            value={deposito.endereco==null || deposito.endereco.logradouro==null ? '' : deposito.endereco.logradouro}
-                            onChange={dadosDepositoChange} name='endereco.logradouro'
+                            value={deposito.logradouro==null ? '' : deposito.logradouro}
+                            onChange={dadosDepositoChange} name='logradouro'
                             label="Logradouro" />
                     <TextField id="numero"
                             inputProps={{maxLength: 10}} 
                             sx={{mr:2}}
-                            value={deposito.endereco==null || deposito.endereco.numero==null ? '' : deposito.endereco.numero}
-                            onChange={dadosDepositoChange} name='endereco.numero'
+                            value={deposito.numero==null ? '' : deposito.numero}
+                            onChange={dadosDepositoChange} name='numero'
                             label="Número" />
                     <TextField id="complemento"
                             inputProps={{maxLength: 100}}
-                            value={deposito.endereco==null || deposito.endereco.complemento==null ? '' : deposito.endereco.complemento}
-                            onChange={dadosDepositoChange} name='endereco.complemento'
+                            value={deposito.complemento==null ? '' : deposito.complemento}
+                            onChange={dadosDepositoChange} name='complemento'
                             label="Complemento" />
                 </Grid>
                 <Grid item xs={12} sm={12} sx={{textAlign: "center"}}>
