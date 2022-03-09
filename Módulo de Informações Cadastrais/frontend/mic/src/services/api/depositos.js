@@ -1,10 +1,6 @@
 import axios from 'axios';
 import { getHeaders, BASE_URL } from './config';
 
-export default axios.create({
-  baseURL: 'http://localhost:8080/depositos'
-});
-
 const BASE_URL_DEPOSITOS = `${BASE_URL}/depositos`;
 
 async function getAllDepositos() {

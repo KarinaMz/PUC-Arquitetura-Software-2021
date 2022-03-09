@@ -1,5 +1,13 @@
 import axios from 'axios';
+import { BASE_URL, getHeaders } from './config';
 
-export default axios.create({
-  baseURL: 'http://localhost:8080/clientes'
-});
+const BASE_URL_CLIENTES = `${BASE_URL}/clientes`;
+
+async function getAllClientes() {
+  return Promise.resolve(await axios.get(`${BASE_URL_CLIENTES}/`, {
+    responseType: 'json',
+    headers: getHeaders()
+  }));
+};
+
+export { getAllClientes }

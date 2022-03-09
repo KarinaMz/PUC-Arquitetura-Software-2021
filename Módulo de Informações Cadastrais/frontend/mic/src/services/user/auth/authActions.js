@@ -1,8 +1,9 @@
 import * as AT from "./authTypes";
 import axios from "axios";
 import { getUsuario } from "../../api/usuario";
+import { BASE_URL } from "../../api/config";
 
-const AUTH_URL = "http://localhost:8080/login";
+const AUTH_URL = `${BASE_URL}/login`;
 
 export const authenticateUser = (login, password) => async (dispatch) => {
   dispatch(loginRequest());

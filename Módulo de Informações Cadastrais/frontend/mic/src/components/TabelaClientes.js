@@ -8,7 +8,7 @@ import Toolbar from "@mui/material/Toolbar";
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
-import Clientes from '../services/api/clientes';
+import { getAllClientes } from '../services/api/clientes';
 import { getDescricaoEndereco, StyledTableCell, StyledTableRow } from './Utils';
 
 
@@ -18,12 +18,7 @@ export default function TabelaClientes() {
   const [page, setPage] = React.useState(0);
 
  useEffect(() => {
-    const token = localStorage.jwtToken;
-
-    Clientes.get('/', {
-        responseType: 'json',
-        headers: {'Authorization': `Bearer ${token}`}
-    }).then(response => {
+    getAllClientes().then(response => {
         setData(response.data)});
   }, [])
 
