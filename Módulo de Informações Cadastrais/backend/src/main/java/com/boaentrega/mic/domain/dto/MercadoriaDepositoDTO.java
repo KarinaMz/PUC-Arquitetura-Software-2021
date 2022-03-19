@@ -5,6 +5,9 @@ import com.boaentrega.mic.domain.entity.MercadoriaDeposito;
 
 public class MercadoriaDepositoDTO {
 
+    private String loginResponsavel;
+
+    private String codigo;
     private Integer id;
     private Integer idMercadoria;
     private String nomeMercadoria;
@@ -30,6 +33,7 @@ public class MercadoriaDepositoDTO {
         this.idCliente = mercadoria.getCliente().getId();
         this.nomeCliente = nomeCliente;
         this.tipo = mercadoria.getTipo().getNome();
+        this.codigo = mercadoriaDeposito.getCodigo();
     }
 
     public Integer getId() {
@@ -94,5 +98,21 @@ public class MercadoriaDepositoDTO {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+
+    public String getLoginResponsavel() {
+        return loginResponsavel;
+    }
+
+    public void setLoginResponsavel(String loginResponsavel) {
+        this.loginResponsavel = loginResponsavel;
+    }
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 }

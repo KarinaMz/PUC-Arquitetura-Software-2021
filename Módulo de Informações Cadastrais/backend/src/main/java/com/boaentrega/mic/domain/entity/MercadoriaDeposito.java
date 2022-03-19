@@ -11,6 +11,9 @@ public class MercadoriaDeposito {
     @Column(name = "MD_ID_MERCADORIA_DEPOSITO")
     private Integer id;
 
+    @Column(name = "MD_CODIGO")
+    private String codigo;
+
     @ManyToOne(targetEntity = Mercadoria.class)
     @JoinColumn(name = "ME_ID_MERCADORIA")
     private Mercadoria mercadoria;
@@ -56,5 +59,13 @@ public class MercadoriaDeposito {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 }

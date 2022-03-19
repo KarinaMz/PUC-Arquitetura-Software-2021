@@ -14,6 +14,7 @@ const FormularioMercadoriasDeposito = (props) => {
     const [mercadoria, setMercadoria] = useState([]);
     const [deposito, setDeposito] = useState([]);
     const [quantidade, setQuantidade] = useState([]);
+    const [codigo, setCodigo] = useState();
 
     const [listaDepositos, setListaDepositos] = useState([]);
     const [listaMercadorias, setListaMercadorias] = useState([]);
@@ -29,7 +30,8 @@ const FormularioMercadoriasDeposito = (props) => {
             quantidade: quantidade,
             deposito: {
                 id: deposito.id
-            }
+            },
+            codigo: codigo
         }
         saveMercadoriaDeposito(mercadoriaDeposito).then(() => {
             return props.history.push("/c/listaMercadoriasDeposito");
@@ -44,6 +46,13 @@ const FormularioMercadoriasDeposito = (props) => {
                 <p className="titulo-secao">Nova mercadoria em depósito</p> 
             </Grid>
             <Grid item xs={12} sm={12}>
+                <TextField id="codig-mercadoria" sx={{mb: 2, display: "block"}}
+                                    inputProps={{maxLength: 15}}
+                                    value={codigo}
+                                    onChange={(event) => setCodigo(event.target.value)}  
+                                    name='codigo'
+                                    label="Código" />
+
                 <InputLabel id="mercadoria-label">Mercadoria</InputLabel>
                 <Select sx={{mb: 2, display: "block"}}
                     labelId="mercadoria-label"

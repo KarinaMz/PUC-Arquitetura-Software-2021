@@ -18,6 +18,7 @@ async function deleteMercadoriaDeposito(idMercadoriaDeposito){
 }
 
 async function moverMercadoria(mercadoriaDeposito){
+    mercadoriaDeposito.loginResponsavel = getUsername();
     return Promise.resolve(await axios.put(`${BASE_URL_MERCADORIAS_DEPOSITO}/deposito`, mercadoriaDeposito, {
       responseType: 'json',
       headers: getHeaders()
@@ -25,6 +26,7 @@ async function moverMercadoria(mercadoriaDeposito){
   }
 
 async function alterarQuantidadeMercadoria(mercadoriaDeposito){
+mercadoriaDeposito.loginResponsavel = getUsername();
 return Promise.resolve(await axios.put(`${BASE_URL_MERCADORIAS_DEPOSITO}/quantidade`, mercadoriaDeposito, {
     responseType: 'json',
     headers: getHeaders()
@@ -32,10 +34,19 @@ return Promise.resolve(await axios.put(`${BASE_URL_MERCADORIAS_DEPOSITO}/quantid
 }
 
 async function saveMercadoriaDeposito(mercadoriaDeposito){
-return Promise.resolve(await axios.post(`${BASE_URL_MERCADORIAS_DEPOSITO}`, mercadoriaDeposito, {
+  mercadoriaDeposito.loginResponsavel = getUsername();
+  return Promise.resolve(await axios.post(`${BASE_URL_MERCADORIAS_DEPOSITO}`, mercadoriaDeposito, {
     responseType: 'json',
     headers: getHeaders()
-}));
+  }));
 }
 
-export { getAllByUsuario, deleteMercadoriaDeposito, moverMercadoria, alterarQuantidadeMercadoria, saveMercadoriaDeposito}
+async function getHistoricoPorMercadoria(idMercadoriaDeposito){
+  return Promise.resolve(await axios.get(`${BASE_URL_MERCADORIAS_DEPOSITO}/historico/${idMercadoriaDeposito}`, {
+    responseType: 'json',
+    headers: getHeaders()
+  }));
+}
+
+export { getAllByUsuario, deleteMercadoriaDeposito, moverMercadoria, 
+  alterarQuantidadeMercadoria, saveMercadoriaDeposito, getHistoricoPorMercadoria}
