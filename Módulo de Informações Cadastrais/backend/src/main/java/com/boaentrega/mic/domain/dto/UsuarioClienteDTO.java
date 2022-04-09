@@ -1,7 +1,6 @@
 package com.boaentrega.mic.domain.dto;
 
 import com.boaentrega.mic.domain.entity.Cliente;
-import com.boaentrega.mic.domain.entity.Endereco;
 import com.boaentrega.mic.domain.entity.Usuario;
 
 public class UsuarioClienteDTO {
@@ -16,13 +15,7 @@ public class UsuarioClienteDTO {
     private String telefone;
     private String email;
 
-    private String cep;
-    private String cidade;
-    private String estado;
-    private String bairro;
-    private String logradouro;
-    private Integer numero;
-    private String complemento;
+    private EnderecoDTO endereco;
 
     public UsuarioClienteDTO(){
         super();
@@ -40,14 +33,7 @@ public class UsuarioClienteDTO {
             this.razaoSocial = cliente.getRazaoSocial();
             this.telefone = cliente.getTelefone();
             this.email = cliente.getEmail();
-
-            this.cep = cliente.getEndereco().getCep();
-            this.cidade = cliente.getEndereco().getCidade();
-            this.estado = cliente.getEndereco().getEstado();
-            this.bairro = cliente.getEndereco().getBairro();
-            this.logradouro = cliente.getEndereco().getLogradouro();
-            this.numero = cliente.getEndereco().getNumero();
-            this.complemento = cliente.getEndereco().getComplemento();
+            this.endereco = new EnderecoDTO(cliente.getEndereco());
         }
     }
 
@@ -59,15 +45,7 @@ public class UsuarioClienteDTO {
             cliente.setEmail(email);
             cliente.setRazaoSocial(razaoSocial);
             cliente.setTelefone(telefone);
-
-            Endereco endereco = usuario.getCliente().getEndereco();
-            endereco.setBairro(bairro);
-            endereco.setCep(cep);
-            endereco.setCidade(cidade);
-            endereco.setComplemento(complemento);
-            endereco.setEstado(estado);
-            endereco.setNumero(numero);
-            endereco.setLogradouro(logradouro);
+            this.endereco.atualizarEndereco(usuario.getCliente().getEndereco());
         }
     }
 
@@ -135,59 +113,11 @@ public class UsuarioClienteDTO {
         this.email = email;
     }
 
-    public String getCep() {
-        return cep;
+    public EnderecoDTO getEndereco() {
+        return endereco;
     }
 
-    public void setCep(String cep) {
-        this.cep = cep;
-    }
-
-    public String getCidade() {
-        return cidade;
-    }
-
-    public void setCidade(String cidade) {
-        this.cidade = cidade;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
-    public String getBairro() {
-        return bairro;
-    }
-
-    public void setBairro(String bairro) {
-        this.bairro = bairro;
-    }
-
-    public String getLogradouro() {
-        return logradouro;
-    }
-
-    public void setLogradouro(String logradouro) {
-        this.logradouro = logradouro;
-    }
-
-    public Integer getNumero() {
-        return numero;
-    }
-
-    public void setNumero(Integer numero) {
-        this.numero = numero;
-    }
-
-    public String getComplemento() {
-        return complemento;
-    }
-
-    public void setComplemento(String complemento) {
-        this.complemento = complemento;
+    public void setEndereco(EnderecoDTO endereco) {
+        this.endereco = endereco;
     }
 }

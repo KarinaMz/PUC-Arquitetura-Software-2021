@@ -46,22 +46,28 @@ create table MIC.DEPOSITO(
 alter table MIC.DEPOSITO add constraint FK_DE_EN foreign key (EN_ID_ENDERECO)
 references MIC.ENDERECO (EN_ID_ENDERECO);
 
-create table MIC.MERCADORIA_DEPOSITO(
-	MD_ID_MERCADORIA_DEPOSITO int not null identity(1,1) primary key,
-	MD_CODIGO varchar(15) not null,
+create table MIC.REGISTRO_MERCADORIA(
+	RM_ID_REGISTRO_MERCADORIA int not null identity(1,1) primary key,
+	RM_CODIGO varchar(15) not null,
 	ME_ID_MERCADORIA int not null,
 	DE_ID_DEPOSITO  int not null,
-	MD_QUANTIDADE   int not null
+	EN_ID_ENDERECO int not null,
+	RM_STATUS varchar(15) not null,
+	RM_DATA_ENTREGA datetime2,
+	RM_QUANTIDADE   int not null,
+	US_ID_USUARIO int
 )
 
-alter table MIC.MERCADORIA_DEPOSITO add constraint FK_MD_DE foreign key (DE_ID_DEPOSITO)
+alter table MIC.REGISTRO_MERCADORIA add constraint FK_RM_DE foreign key (DE_ID_DEPOSITO)
 references MIC.DEPOSITO (DE_ID_DEPOSITO);
-alter table MIC.MERCADORIA_DEPOSITO add constraint FK_MD_ME foreign key (ME_ID_MERCADORIA)
+alter table MIC.REGISTRO_MERCADORIA add constraint FK_RM_ME foreign key (ME_ID_MERCADORIA)
 references MIC.MERCADORIA (ME_ID_MERCADORIA);
+alter table MIC.REGISTRO_MERCADORIA add constraint FK_RM_US foreign key (US_ID_USUARIO)
+references MIC.USUARIO (US_ID_USUARIO);
 
 create table MIC.HISTORICO_DEPOSITO(
     HD_ID_HISTORICO_DEPOSITO int not null identity(1,1) primary key,
-    MD_ID_MERCADORIA_DEPOSITO int not null,
+    RM_ID_REGISTRO_MERCADORIA int not null,
     HD_DATA_HORA datetime2 not null,
 	DE_ID_DEPOSITO  int not null,
 	US_ID_USUARIO int not null
@@ -71,8 +77,8 @@ alter table MIC.HISTORICO_DEPOSITO add constraint FK_HD_DE foreign key (DE_ID_DE
 references MIC.DEPOSITO (DE_ID_DEPOSITO);
 alter table MIC.HISTORICO_DEPOSITO add constraint FK_HD_US foreign key (US_ID_USUARIO)
 references MIC.USUARIO (US_ID_USUARIO);
-alter table MIC.HISTORICO_DEPOSITO add constraint FK_HD_MD foreign key (MD_ID_MERCADORIA_DEPOSITO)
-references MIC.MERCADORIA_DEPOSITO (MD_ID_MERCADORIA_DEPOSITO);
+alter table MIC.HISTORICO_DEPOSITO add constraint FK_HD_RM foreign key (RM_ID_REGISTRO_MERCADORIA)
+references MIC.REGISTRO_MERCADORIA (RM_ID_REGISTRO_MERCADORIA);
 
 create table MIC.USUARIO(
 	US_ID_USUARIO int not null identity(1,1) primary key,

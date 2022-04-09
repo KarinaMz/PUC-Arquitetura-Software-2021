@@ -7,6 +7,8 @@ import { spacing } from "@mui/system";
 import InputMask from "react-input-mask";
 import { getUsuario, updateUsuario } from '../../services/api/usuario';
 import Alerta from '../../components/Alerta';
+import { estadosBrasileiros } from '../../components/Utils';
+import { MenuItem } from '@mui/material';
 
 const MinhaConta = (props) => {
     const Button = styled(MuiButton)(spacing);
@@ -44,6 +46,13 @@ const MinhaConta = (props) => {
         const { name, value } = event.target;
         setDadosUsuario({ ...dadosUsuario, [name]: value });
       };
+      const dadosEnderecoChange = (event) => {
+        const { name, value } = event.target;
+        setDadosUsuario(prevState => ({
+            ...prevState,
+            endereco: { ...prevState.endereco, [name]: value }
+        }));
+    }
 
     return (
         <div>
@@ -99,7 +108,7 @@ const MinhaConta = (props) => {
                             maskChar=" ">
                             {() => <TextField id="telefone"
                                     InputProps={{readOnly: fieldsReadOnly, disabled: fieldsReadOnly}}
-                                    sx={{mr:2}}
+                                    sx={{mr:2, mb: 2}}
                                     name='telefone'
                                     label="Telefone" />}
                         </InputMask>
@@ -118,9 +127,9 @@ const MinhaConta = (props) => {
                         <p>Endereço</p>
                         <InputMask
                             mask="99999-999"
-                            value={dadosUsuario.cep==null ? '' : dadosUsuario.cep}
+                            value={dadosUsuario.endereco==null ? '' : dadosUsuario.endereco.cep}
                             disabled={false}
-                            onChange={dadosChange}
+                            onChange={dadosEnderecoChange}
                             maskChar=" ">
                             {() => <TextField id="cep" name='cep'
                                     sx={{mb: 2, mr:2}}
@@ -130,47 +139,57 @@ const MinhaConta = (props) => {
                         </InputMask>
                         <TextField id="cidade" 
                                 InputProps={{readOnly: fieldsReadOnly, disabled: fieldsReadOnly}}
-                                inputProps={{maxLength: 100}}
-                                value={dadosUsuario.cidade==null ? '' : dadosUsuario.cidade}
-                                onChange={dadosChange} name='cidade'
+                                sx={{mb: 2}}
+                                inputProps={{maxlength: 100}}
+                                value={dadosUsuario.endereco==null ? '' : dadosUsuario.endereco.cidade}
+                                onChange={dadosEnderecoChange} name='cidade'
                                 label="Cidade" />
-                        <TextField id="estado"
-                                InputProps={{readOnly: fieldsReadOnly, disabled: fieldsReadOnly}}
-                                inputProps={{maxLength: 100}}
-                                sx={{mb: 2, mr:2}}
-                                value={dadosUsuario.estado==null ? '' : dadosUsuario.estado}
-                                onChange={dadosChange} name='estado'
-                                label="Estado" />
+
+                        <TextField
+                            id="estado-select"
+                            select  
+                            label="Estado" name='estado'
+                            InputProps={{readOnly: fieldsReadOnly, disabled: fieldsReadOnly}}
+                            sx={{mb: 2, mr:2, width: 220}}
+                            value={dadosUsuario.endereco==null ? '' : dadosUsuario.endereco.estado}
+                            onChange={dadosEnderecoChange}>
+                            {estadosBrasileiros.map((option) => (
+                                <MenuItem key={option.value} value={option.value}>
+                                {option.label}
+                                </MenuItem>
+                            ))}
+                        </TextField>
                         <TextField id="bairro"
                                 InputProps={{readOnly: fieldsReadOnly, disabled: fieldsReadOnly}}
-                                inputProps={{maxLength: 100}}
-                                value={dadosUsuario.bairro==null ? '' : dadosUsuario.bairro}
-                                onChange={dadosChange} name='bairro'
+                                sx={{mb: 2}}
+                                inputProps={{maxlength: 100}}
+                                value={dadosUsuario.endereco==null ? '' : dadosUsuario.endereco.bairro}
+                                onChange={dadosEnderecoChange} name='bairro'
                                 label="Bairro" />
                         <TextField id="logradouro"
                                 InputProps={{readOnly: fieldsReadOnly, disabled: fieldsReadOnly}}
-                                inputProps={{maxLength: 300}}
                                 sx={{mb: 2}}
+                                inputProps={{maxlength: 300}}
                                 className="campo-linha-unica"
-                                value={dadosUsuario.logradouro==null ? '' : dadosUsuario.logradouro}
-                                onChange={dadosChange} name='logradouro'
+                                value={dadosUsuario.endereco==null ? '' : dadosUsuario.endereco.logradouro}
+                                onChange={dadosEnderecoChange} name='logradouro'
                                 label="Logradouro" />
                         <TextField id="numero"
                                 InputProps={{readOnly: fieldsReadOnly, disabled: fieldsReadOnly}}
-                                inputProps={{maxLength: 10}} 
-                                sx={{mr:2}}
-                                value={dadosUsuario.numero==null ? '' : dadosUsuario.numero}
-                                onChange={dadosChange} name='numero'
+                                inputProps={{maxlength: 10}}
+                                sx={{mb:2, mr:2}}
+                                value={dadosUsuario.endereco==null ? '' : dadosUsuario.endereco.numero}
+                                onChange={dadosEnderecoChange} name='numero'
                                 label="Número" />
                         <TextField id="complemento"
                                 InputProps={{readOnly: fieldsReadOnly, disabled: fieldsReadOnly}}
-                                inputProps={{maxLength: 100}}
-                                value={dadosUsuario.complemento==null ? '' : dadosUsuario.complemento}
-                                onChange={dadosChange} name='complemento'
+                                inputProps={{maxlength: 100}}
+                                value={dadosUsuario.endereco==null ? '' : dadosUsuario.endereco.complemento}
+                                onChange={dadosEnderecoChange} name='complemento'
                                 label="Complemento" />
                     </Grid>
                 }
-                <Grid item xs={12} sm={12} sx={{textAlign: "center"}}>
+                <Grid item xs={12} sm={12} sx={{textAlign: "center"}} spacing={3}>
                     <div style={{display: 'block', marginBottom: 20}}>
                         {fieldsReadOnly &&
                             <Button variant="contained" color="primary"

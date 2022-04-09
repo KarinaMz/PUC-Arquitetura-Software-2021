@@ -12,9 +12,9 @@ public class HistoricoDeposito {
     @Column(name = "HD_ID_HISTORICO_DEPOSITO")
     private Integer id;
 
-    @ManyToOne(targetEntity = MercadoriaDeposito.class)
-    @JoinColumn(name = "MD_ID_MERCADORIA_DEPOSITO")
-    private MercadoriaDeposito mercadoriaDeposito;
+    @ManyToOne(targetEntity = RegistroMercadoria.class)
+    @JoinColumn(name = "RM_ID_REGISTRO_MERCADORIA")
+    private RegistroMercadoria registroMercadoria;
 
     @Column(name = "HD_DATA_HORA")
     private Date dataHora;
@@ -31,10 +31,10 @@ public class HistoricoDeposito {
         super();
     }
 
-    public HistoricoDeposito(MercadoriaDeposito mercadoriaDeposito, Usuario responsavel){
-        this.mercadoriaDeposito = mercadoriaDeposito;
+    public HistoricoDeposito(RegistroMercadoria registroMercadoria, Usuario responsavel){
+        this.registroMercadoria = registroMercadoria;
         this.dataHora = new Date();
-        this.deposito = mercadoriaDeposito.getDeposito();
+        this.deposito = registroMercadoria.getDeposito();
         this.responsavel = responsavel;
     }
 
@@ -46,12 +46,12 @@ public class HistoricoDeposito {
         this.id = id;
     }
 
-    public MercadoriaDeposito getMercadoriaDeposito() {
-        return mercadoriaDeposito;
+    public RegistroMercadoria getRegistroMercadoria() {
+        return registroMercadoria;
     }
 
-    public void setMercadoriaDeposito(MercadoriaDeposito mercadoriaDeposito) {
-        this.mercadoriaDeposito = mercadoriaDeposito;
+    public void setRegistroMercadoria(RegistroMercadoria registroMercadoria) {
+        this.registroMercadoria = registroMercadoria;
     }
 
     public Date getDataHora() {

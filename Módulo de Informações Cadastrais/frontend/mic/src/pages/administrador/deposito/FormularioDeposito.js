@@ -4,13 +4,14 @@ import Grid from '@mui/material/Grid';
 import Button from "@mui/material/Button";
 import InputMask from "react-input-mask";
 import { editDeposito, saveDeposito } from '../../../services/api/depositos';
+import { estadosBrasileiros } from '../../../components/Utils';
+import { MenuItem } from '@mui/material';
 
 const FormularioDeposito = (props) => {
 
     useEffect(() => {
         if(props.location.state && props.location.state.depositoEdicao){
             setDeposito(props.location.state.depositoEdicao);
-            console.log(props.location.state.depositoEdicao);
         } 
     }, [props]);
 
@@ -19,6 +20,13 @@ const FormularioDeposito = (props) => {
         const { name, value } = event.target;
         setDeposito({ ...deposito, [name]: value });
     };
+    const dadosEnderecoChange = (event) => {
+        const { name, value } = event.target;
+        setDeposito(prevState => ({
+            ...prevState,
+            endereco: { ...prevState.endereco, [name]: value }
+        }));
+    }
 
     function salvarDeposito(){
         if(deposito.id!=null){
@@ -60,9 +68,9 @@ const FormularioDeposito = (props) => {
                     <p>Endereço</p>
                     <InputMask
                         mask="99999-999"
-                        value={deposito.cep==null ? '' : deposito.cep}
+                        value={deposito.endereco==null ? '' : deposito.endereco.cep}
                         disabled={false}
-                        onChange={dadosDepositoChange}
+                        onChange={dadosEnderecoChange}
                         maskChar=" ">
                         {() => <TextField id="cep" name='cep'
                                 sx={{mb: 2, mr:2}}
@@ -71,37 +79,44 @@ const FormularioDeposito = (props) => {
                     </InputMask>
                     <TextField id="cidade" 
                             inputProps={{maxLength: 100}}
-                            value={deposito.cidade==null ? '' : deposito.cidade}
-                            onChange={dadosDepositoChange} name='cidade'
+                            value={deposito.endereco==null ? '' : deposito.endereco.cidade}
+                            onChange={dadosEnderecoChange} name='cidade'
                             label="Cidade" />
-                    <TextField id="estado"
-                            inputProps={{maxLength: 100}}
-                            sx={{mb: 2, mr:2}}
-                            value={deposito.estado==null ? '' : deposito.estado}
-                            onChange={dadosDepositoChange} name='estado'
-                            label="Estado" />
+                    <TextField
+                            id="estado-select"
+                            select  
+                            label="Estado" name='estado'
+                            sx={{mb: 2, mr:2, width: 220}}
+                            value={deposito.endereco==null ? '' : deposito.endereco.estado}
+                            onChange={dadosEnderecoChange}>
+                            {estadosBrasileiros.map((option) => (
+                                <MenuItem key={option.value} value={option.value}>
+                                {option.label}
+                                </MenuItem>
+                            ))}
+                    </TextField>
                     <TextField id="bairro"
                             inputProps={{maxLength: 100}}
-                            value={deposito.bairro==null ? '' : deposito.bairro}
-                            onChange={dadosDepositoChange} name='bairro'
+                            value={deposito.endereco==null ? '' : deposito.endereco.bairro}
+                            onChange={dadosEnderecoChange} name='bairro'
                             label="Bairro" />
                     <TextField id="logradouro"
                             inputProps={{maxLength: 300}}
                             sx={{mb: 2}}
                             className="campo-linha-unica"
-                            value={deposito.logradouro==null ? '' : deposito.logradouro}
-                            onChange={dadosDepositoChange} name='logradouro'
+                            value={deposito.endereco==null ? '' : deposito.endereco.logradouro}
+                            onChange={dadosEnderecoChange} name='logradouro'
                             label="Logradouro" />
                     <TextField id="numero"
                             inputProps={{maxLength: 10}} 
                             sx={{mr:2}}
-                            value={deposito.numero==null ? '' : deposito.numero}
-                            onChange={dadosDepositoChange} name='numero'
+                            value={deposito.endereco==null ? '' : deposito.endereco.numero}
+                            onChange={dadosEnderecoChange} name='numero'
                             label="Número" />
                     <TextField id="complemento"
                             inputProps={{maxLength: 100}}
-                            value={deposito.complemento==null ? '' : deposito.complemento}
-                            onChange={dadosDepositoChange} name='complemento'
+                            value={deposito.endereco==null ? '' : deposito.endereco.complemento}
+                            onChange={dadosEnderecoChange} name='complemento'
                             label="Complemento" />
                 </Grid>
                 <Grid item xs={12} sm={12} sx={{textAlign: "center"}}>
@@ -112,7 +127,7 @@ const FormularioDeposito = (props) => {
                     </Button>
                     <Button variant="contained" color="primary"
                         sx={{mr:2}}
-                        onClick={salvarDeposito}
+                        onClick={()=>salvarDeposito()}
                         type='submit'>
                         Salvar
                     </Button>

@@ -9,7 +9,7 @@ import Toolbar from "@mui/material/Toolbar";
 import TableRow from '@mui/material/TableRow';
 import TextField from '@mui/material/TextField';
 import Paper from '@mui/material/Paper';
-import { getAllByUsuario, deleteMercadoriaDeposito, alterarQuantidadeMercadoria, moverMercadoria, getHistoricoPorMercadoria } from '../services/api/mercadoriasDeposito';
+import { getAllByUsuario, deleteRegistroMercadoria, alterarQuantidadeMercadoria, moverMercadoria, getHistoricoPorMercadoria } from '../services/api/registroMercadorias';
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
 import HistoryIcon from '@mui/icons-material/History';
@@ -20,7 +20,6 @@ import IconButton from '@mui/material/IconButton';
 import DialogoConfirmacao from './DialogoConfirmacao';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import Alerta from './Alerta';
-import { Link } from 'react-router-dom';
 
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -28,10 +27,10 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import { getAllDepositos } from '../services/api/depositos'; 
 import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
+import { Link } from 'react-router-dom';
 
-const TabelaMercadoriasDeposito = (props) => {
-  const [mercadoriasDepositoData, setData] = useState([]);
+const TabelaRegistrosMercadorias = (props) => {
+  const [registroMercadoriasData, setData] = useState([]);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [page, setPage] = React.useState(0);
   const perfilAdm = localStorage.perfil === 'Administrador';
@@ -50,14 +49,14 @@ const TabelaMercadoriasDeposito = (props) => {
 
   /* Excluir */  
   const [openAlertSucess, setOpenAlertSucess] = useState(false);
-  const [mercadoriaDepositoExclusao, setMercadoriaDepositoExclusao] = useState(false);
+  const [registroMercadoriaExclusao, setRegistroMercadoriaExclusao] = useState(false);
   const [open, setOpen] = useState(false);
-  const handleClickOpen = (mercadoriaDeposito) => {
-    setMercadoriaDepositoExclusao(mercadoriaDeposito);
+  const handleClickOpen = (registroMercadoria) => {
+    setRegistroMercadoriaExclusao(registroMercadoria);
     setOpen(true);
   };
-  function excluirMercadoriaDeposito(){
-    deleteMercadoriaDeposito(mercadoriaDepositoExclusao.id).then(() => { 
+  function excluirRegistroMercadoria(){
+    deleteRegistroMercadoria(registroMercadoriaExclusao.id).then(() => { 
       setOpenAlertSucess(true);
       getAllByUsuario().then(response => {
         setData(response.data)});
@@ -69,22 +68,22 @@ const TabelaMercadoriasDeposito = (props) => {
 const [openMoverMercadoria, setOpenMoverMercadoria] = useState(false);
 const [openAlertMercadoriaMovida, setOpenAlertMercadoriaMovida] = useState(false);
 const [listaDepositos, setListaDepositos] = useState([]);
-const [mercadoriaDepositoEdicao, setMercadoriaDepositoEdicao] = useState();
+const [registroMercadoriaEdicao, setRegistroMercadoriaEdicao] = useState();
 const [deposito, setDeposito] = useState([]);
-const handleOpenMoverMercadoria = (mercadoriaDeposito) => {
+const handleOpenMoverMercadoria = (registroMercadoria) => {
     setOpenMoverMercadoria(true);
-    setMercadoriaDepositoEdicao(mercadoriaDeposito);
+    setRegistroMercadoriaEdicao(registroMercadoria);
     getAllDepositos().then(response => {setListaDepositos(response.data)});
 }
 const handleCloseMoverMercadoria = () => {
     setOpenMoverMercadoria(false);
   };
 function handleMoverMercadoria() {
-    const mercadoriaDepositoMovida = {
-        id: mercadoriaDepositoEdicao.id, 
+    const registroMercadoriaMovida = {
+        id: registroMercadoriaEdicao.id, 
         deposito: deposito
     }
-    moverMercadoria(mercadoriaDepositoMovida)
+    moverMercadoria(registroMercadoriaMovida)
         .then(() => { 
             setOpenAlertMercadoriaMovida(true);
             setOpenMoverMercadoria(false);
@@ -97,17 +96,17 @@ function handleMoverMercadoria() {
 const [openAlterarQtd, setOpenAlterarQtd] = useState(false);
 const [qtdMercadorias, setQtdMercadorias] = useState(0);
 const [openAlertAlterarQtd, setOpenAlertAlterarQtd] = useState(false);
-const handleOpenAlterarQtd = (mercadoriaDeposito) => {
+const handleOpenAlterarQtd = (registroMercadoria) => {
   setOpenAlterarQtd(true);
-  setQtdMercadorias(mercadoriaDeposito.quantidade);
-  setMercadoriaDepositoEdicao(mercadoriaDeposito);
+  setQtdMercadorias(registroMercadoria.quantidade);
+  setRegistroMercadoriaEdicao(registroMercadoria);
 }
 function handleAlterarQtdMercadoria(){
-  const mercadoriaDepositoAlterada = {
-      id: mercadoriaDepositoEdicao.id, 
+  const registroMercadoriaAlterada = {
+      id: registroMercadoriaEdicao.id, 
       quantidade: qtdMercadorias
   }
-  alterarQuantidadeMercadoria(mercadoriaDepositoAlterada)
+  alterarQuantidadeMercadoria(registroMercadoriaAlterada)
         .then(() => { 
             setOpenAlertAlterarQtd(true);
             setOpenAlterarQtd(false);
@@ -122,10 +121,10 @@ const handleCloseAlterarQtd = () => {
 /* Histórico */
 const [historicos, setHistoricos] = useState([]);
 const [openHistoricos, setOpenHistoricos] = useState(false);
-const handleOpenHistoricos = (mercadoriaDeposito) => {
+const handleOpenHistoricos = (registroMercadoria) => {
   setOpenHistoricos(true);
-  setMercadoriaDepositoEdicao(mercadoriaDeposito);
-  getHistoricoPorMercadoria(mercadoriaDeposito.id).then(response => {setHistoricos(response.data)});
+  setRegistroMercadoriaEdicao(registroMercadoria);
+  getHistoricoPorMercadoria(registroMercadoria.codigo).then(response => {setHistoricos(response.data)});
 }
 const handleCloseHistoricos = () => {
   setOpenHistoricos(false);
@@ -135,10 +134,10 @@ const handleCloseHistoricos = () => {
     <div>
       <TableContainer component={Paper}>
         <Toolbar>
-          <Typography variant="h6" sx={{ flexGrow: 1 }}>Mercadorias em depósitos</Typography>
+          <Typography variant="h6" sx={{ flexGrow: 1 }}>Registros de mercadorias</Typography>
           {!perfilAdm &&
             <Button variant="contained" color="primary"
-                href="/c/formularioMercadoriaDeposito"
+                href="/c/formularioRegistroMercadoria"
                 startIcon={<AddIcon />}>
                 Nova
             </Button>
@@ -151,40 +150,59 @@ const handleCloseHistoricos = () => {
                 <StyledTableCell align="left">Cliente</StyledTableCell>
               }
               <StyledTableCell align="left">Código</StyledTableCell>
-              <StyledTableCell align="left">Mercadoria</StyledTableCell>
-              <StyledTableCell align="left">Depósito</StyledTableCell>
-              <StyledTableCell align="left">Quantidade</StyledTableCell>
+              <StyledTableCell align="left">Local</StyledTableCell>
+              <StyledTableCell align="left">Destino</StyledTableCell>
+              <StyledTableCell align="left">Status</StyledTableCell>
               <StyledTableCell></StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {mercadoriasDepositoData
-            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            {registroMercadoriasData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             .map((row) => (
               <StyledTableRow key={row.id}>
                 {perfilAdm &&
                     <StyledTableCell align="left">{row.nomeCliente}</StyledTableCell>
                 }
                 <StyledTableCell align="left">{row.codigo}</StyledTableCell>
-                <StyledTableCell align="left">{row.nomeMercadoria}</StyledTableCell>
                 <StyledTableCell align="left">
-                    {row.deposito.codigo}<br></br>
-                    {getDescricaoEndereco(row.deposito)}  
+                  {row.dataEntrega && 
+                    getDescricaoEndereco(row.destino)
+                  }
+                  {!row.dataEntrega &&
+                    <span>
+                      Depósito: {row.deposito.codigo} <br/>
+                      {getDescricaoEndereco(row.deposito.endereco)}
+                    </span>
+                  }
                 </StyledTableCell>
-                <StyledTableCell align="left">{row.quantidade}</StyledTableCell>
+                <StyledTableCell align="left">{getDescricaoEndereco(row.destino)}</StyledTableCell>
+                <StyledTableCell align="left">{row.status}</StyledTableCell>
                 <StyledTableCell>
-                <IconButton aria-label="ver histórico" color="primary" onClick={() => handleOpenAlterarQtd(row)}>
-                    <EditIcon />
-                </IconButton>
+                {(perfilAdm || row.status === 'Registrado') &&
+                  <IconButton aria-label="alterar quantidade" color="primary" onClick={() => handleOpenAlterarQtd(row)}>
+                      <EditIcon />
+                  </IconButton>
+                }
                 <IconButton aria-label="ver histórico" color="primary" onClick={() => handleOpenHistoricos(row)}>
                     <HistoryIcon />
                 </IconButton>
+                {(perfilAdm && row.status !== 'Entregue') &&
+                 <Link to={{pathname:'/listaRegistrosMercadorias/local', state: {registroEdicao: row}}}>
+                   <IconButton aria-label="mover" color="primary" >
+                    <LocalShippingIcon />
+                  </IconButton>
+                 </Link>
+                }
+                {(!perfilAdm && row.status === 'Registrado') &&
                 <IconButton aria-label="mover" color="primary" onClick={() => handleOpenMoverMercadoria(row)}>
                     <LocalShippingIcon />
                 </IconButton>
+                }
+                {(perfilAdm || row.status === 'Registrado') &&
                 <IconButton aria-label="delete" color="primary" onClick={() => handleClickOpen(row)}>
                   <DeleteIcon />
                 </IconButton>
+                }
                 </StyledTableCell>
               </StyledTableRow>
             ))}
@@ -195,7 +213,7 @@ const handleCloseHistoricos = () => {
           rowsPerPageOptions={[5, 10]}
           component="div"
           labelRowsPerPage="Registros por página"
-          count={mercadoriasDepositoData.length}
+          count={registroMercadoriasData.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}
@@ -207,7 +225,7 @@ const handleCloseHistoricos = () => {
                         tipo="success"
                         mensagem="O registro de mercadoria no depósito foi excluida com sucesso!"/>
       <DialogoConfirmacao 
-        confirmationAction={excluirMercadoriaDeposito}
+        confirmationAction={excluirRegistroMercadoria}
         open={open}
         setOpen={setOpen}
         mensagem="Confirmar a exclução do registro da mercadoria no depósito?"
@@ -225,21 +243,22 @@ const handleCloseHistoricos = () => {
         aria-describedby="alert-dialog-description">
     <DialogContent>
         <DialogContentText id="alert-dialog-description">
-            Mover mercadoria para o depósito:
+            Registro - {registroMercadoriaEdicao && registroMercadoriaEdicao.codigo}<br/>
+            Alterar depósito 
         </DialogContentText>
-        <Select sx={{mb: 2, display: "block"}}
-            labelId="deposito-label"
-            id="deposito" 
-            value={deposito} required
-            onChange={(event) => setDeposito(event.target.value)}
-            label="Depósito" >
-            <MenuItem disabled value="">
-                <em>Depósito</em>
-            </MenuItem>
-            {listaDepositos.map((row) => (
-                <MenuItem value={row} key={row.id}>{row.codigo} - {getDescricaoEndereco(row)}</MenuItem>
-            ))}
-        </Select>
+        <br/>
+        <TextField
+          id="deposito-select"
+          select fullWidth 
+          label="Selecione"
+          value={deposito}
+          onChange={(event) => setDeposito(event.target.value)}>
+          {listaDepositos.map((option) => (
+              <MenuItem key={option.value} value={option}>
+              {option.codigo} - {getDescricaoEndereco(option.endereco)}
+              </MenuItem>
+          ))}
+          </TextField>
     </DialogContent>
     <DialogActions>
         <Button onClick={handleCloseMoverMercadoria}>Cancelar</Button>
@@ -260,7 +279,8 @@ const handleCloseHistoricos = () => {
         aria-describedby="alert-dialog-description">
     <DialogContent>
         <DialogContentText id="alert-dialog-description">
-            Alterar a quantidade de mercadoria no depósito:
+            Registro - {registroMercadoriaEdicao && registroMercadoriaEdicao.codigo}<br/>
+            Alterar a quantidade de mercadoria:
         </DialogContentText>
         <TextField id="quantidade" sx={{mt: 4, display: "block"}}
                                 value={qtdMercadorias}
@@ -283,13 +303,14 @@ const handleCloseHistoricos = () => {
         aria-describedby="alert-dialog-description">
     <DialogContent>
         <DialogContentText id="alert-dialog-description">
-            Histórico de localização - {mercadoriaDepositoEdicao!=null ? mercadoriaDepositoEdicao.codigo : ''}
+            Registro - {registroMercadoriaEdicao && registroMercadoriaEdicao.codigo}<br/>
+            Histórico de localização
         </DialogContentText>
         <Table aria-label="customized table">
           <TableHead>
             <TableRow>
                 <StyledTableCell align="left">Data</StyledTableCell>
-                <StyledTableCell align="left">Depósito</StyledTableCell>
+                <StyledTableCell align="left">Local</StyledTableCell>
                 <StyledTableCell align="left">Usuário</StyledTableCell>
             </TableRow>
           </TableHead>
@@ -299,7 +320,11 @@ const handleCloseHistoricos = () => {
             .map((row) => (
               <StyledTableRow key={row.dataHora}>
                 <StyledTableCell align="left">{row.dataHora}</StyledTableCell>
-                <StyledTableCell align="left">{row.depositoDTO.codigo} - {getDescricaoEndereco(row.depositoDTO)}</StyledTableCell>
+                <StyledTableCell align="left">{row.codigoDeposito && 
+                  <div> 
+                    Depósito: {row.codigoDeposito} 
+                  </div>} 
+                {getDescricaoEndereco(row.endereco)}</StyledTableCell>
                 <StyledTableCell align="left">{row.nomeResponsavel}</StyledTableCell>
               </StyledTableRow>
             ))}
@@ -314,4 +339,4 @@ const handleCloseHistoricos = () => {
   );
 }
 
-export default TabelaMercadoriasDeposito;
+export default TabelaRegistrosMercadorias;

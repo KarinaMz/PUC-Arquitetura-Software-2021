@@ -1,6 +1,7 @@
 package com.boaentrega.mic.domain.dto;
 
 import com.boaentrega.mic.domain.entity.HistoricoDeposito;
+import com.boaentrega.mic.domain.entity.RegistroMercadoria;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -12,15 +13,26 @@ public class HistoricoDTO {
     private String dataHora;
     private String nomeMercadoria;
     private String nomeResponsavel;
-    private DepositoDTO depositoDTO;
+    private String codigoDeposito;
+    private EnderecoDTO endereco;
 
     public HistoricoDTO(HistoricoDeposito historico, Date dataHora){
-        this.codigo = historico.getMercadoriaDeposito().getCodigo();
-        DateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy hh:mm");
+        this.codigo = historico.getRegistroMercadoria().getCodigo();
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         this.dataHora = dateFormat.format(dataHora);
-        this.depositoDTO = new DepositoDTO(historico.getDeposito());
-        this.nomeMercadoria = historico.getMercadoriaDeposito().getMercadoria().getNome();
+        this.endereco = new EnderecoDTO(historico.getDeposito().getEndereco());
+        this.nomeMercadoria = historico.getRegistroMercadoria().getMercadoria().getNome();
         this.nomeResponsavel = historico.getResponsavel().getNome();
+        this.codigoDeposito = historico.getDeposito().getCodigo();
+    }
+
+    public HistoricoDTO(RegistroMercadoria registro){
+        this.codigo = registro.getCodigo();
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        this.dataHora = dateFormat.format(registro.getDataEntrega());
+        this.endereco = new EnderecoDTO(registro.getDestino());
+        this.nomeMercadoria = registro.getMercadoria().getNome();
+        this.nomeResponsavel = registro.getResponsavelEntrega().getNome();
     }
 
     public HistoricoDTO(){
@@ -59,11 +71,19 @@ public class HistoricoDTO {
         this.nomeResponsavel = nomeResponsavel;
     }
 
-    public DepositoDTO getDepositoDTO() {
-        return depositoDTO;
+    public String getCodigoDeposito() {
+        return codigoDeposito;
     }
 
-    public void setDepositoDTO(DepositoDTO depositoDTO) {
-        this.depositoDTO = depositoDTO;
+    public void setCodigoDeposito(String codigoDeposito) {
+        this.codigoDeposito = codigoDeposito;
+    }
+
+    public EnderecoDTO getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(EnderecoDTO endereco) {
+        this.endereco = endereco;
     }
 }

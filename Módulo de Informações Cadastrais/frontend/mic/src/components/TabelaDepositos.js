@@ -88,7 +88,7 @@ export default function TabelaClientes() {
               <StyledTableRow key={row.id}>
                 <StyledTableCell align="left">{row.codigo}</StyledTableCell>
                 <StyledTableCell align="left">{row.telefone}</StyledTableCell>
-                <StyledTableCell align="left">{getDescricaoEndereco(row)}</StyledTableCell>
+                <StyledTableCell align="left">{getDescricaoEndereco(row.endereco)}</StyledTableCell>
                 {perfilAdm &&
                   <StyledTableCell>
                     <Link to={{pathname:'/formularioDeposito', state: {depositoEdicao: row}}}>

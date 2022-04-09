@@ -39,7 +39,7 @@ export default function BarraMenuAdm() {
               onClose={handleClose} >
               <MenuItem onClick={handleClose} ><Button  href="/listaClientes">Clientes</Button></MenuItem>
               <MenuItem onClick={handleClose}><Button href="/listaDepositos">Depósitos</Button></MenuItem>
-              <MenuItem onClick={handleClose}><Button href="/listaMercadorias">Mercadorias</Button></MenuItem>
+              <MenuItem onClick={handleClose}><Button href="/listaRegistrosMercadorias">Registros de Mercadorias</Button></MenuItem>
             </Menu>
             <Typography variant="h6"  sx={{ flexGrow: 1 }}>
               Módulo de Informações Cadastrais

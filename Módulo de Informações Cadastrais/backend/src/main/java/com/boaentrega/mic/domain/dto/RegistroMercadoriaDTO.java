@@ -1,9 +1,12 @@
 package com.boaentrega.mic.domain.dto;
 
 import com.boaentrega.mic.domain.entity.Mercadoria;
-import com.boaentrega.mic.domain.entity.MercadoriaDeposito;
+import com.boaentrega.mic.domain.entity.RegistroMercadoria;
 
-public class MercadoriaDepositoDTO {
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
+public class RegistroMercadoriaDTO {
 
     private String loginResponsavel;
 
@@ -17,23 +20,33 @@ public class MercadoriaDepositoDTO {
 
     private DepositoDTO deposito;
     private Integer quantidade;
+    private EnderecoDTO destino;
+    private String status;
+    private String dataEntrega;
+    private boolean entregue;
 
-    public MercadoriaDepositoDTO(){
+    public RegistroMercadoriaDTO(){
         super();
     }
 
-    public MercadoriaDepositoDTO(MercadoriaDeposito mercadoriaDeposito, String nomeCliente, String nomeMercadoria){
-        this.id = mercadoriaDeposito.getId();
-        this.quantidade = mercadoriaDeposito.getQuantidade();
-        this.deposito = new DepositoDTO(mercadoriaDeposito.getDeposito());
+    public RegistroMercadoriaDTO(RegistroMercadoria registroMercadoria, String nomeCliente, String nomeMercadoria){
+        this.id = registroMercadoria.getId();
+        this.quantidade = registroMercadoria.getQuantidade();
+        this.deposito = new DepositoDTO(registroMercadoria.getDeposito());
 
-        Mercadoria mercadoria = mercadoriaDeposito.getMercadoria();
+        Mercadoria mercadoria = registroMercadoria.getMercadoria();
         this.idMercadoria = mercadoria.getId();
         this.nomeMercadoria = nomeMercadoria;
         this.idCliente = mercadoria.getCliente().getId();
         this.nomeCliente = nomeCliente;
         this.tipo = mercadoria.getTipo().getNome();
-        this.codigo = mercadoriaDeposito.getCodigo();
+        this.codigo = registroMercadoria.getCodigo();
+
+        this.destino = new EnderecoDTO(registroMercadoria.getDestino());
+        this.status = registroMercadoria.getStatus().getDescricao();
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        this.dataEntrega = registroMercadoria.getDataEntrega()!=null ?
+            dateFormat.format(registroMercadoria.getDataEntrega()) : "";
     }
 
     public Integer getId() {
@@ -114,5 +127,37 @@ public class MercadoriaDepositoDTO {
 
     public void setCodigo(String codigo) {
         this.codigo = codigo;
+    }
+
+    public EnderecoDTO getDestino() {
+        return destino;
+    }
+
+    public void setDestino(EnderecoDTO destino) {
+        this.destino = destino;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getDataEntrega() {
+        return dataEntrega;
+    }
+
+    public void setDataEntrega(String dataEntrega) {
+        this.dataEntrega = dataEntrega;
+    }
+
+    public boolean isEntregue() {
+        return entregue;
+    }
+
+    public void setEntregue(boolean entregue) {
+        this.entregue = entregue;
     }
 }

@@ -3,9 +3,9 @@ package com.boaentrega.mic.controller;
 import com.boaentrega.mic.domain.dto.DepositoDTO;
 import com.boaentrega.mic.exception.MicException;
 import com.boaentrega.mic.domain.entity.Deposito;
-import com.boaentrega.mic.domain.entity.MercadoriaDeposito;
+import com.boaentrega.mic.domain.entity.RegistroMercadoria;
 import com.boaentrega.mic.repository.DepositoRepository;
-import com.boaentrega.mic.repository.MercadoriaDepositoRepository;
+import com.boaentrega.mic.repository.RegistroMercadoriaRepository;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +23,7 @@ public class DepositoController {
     private DepositoRepository depositoRepository;
 
     @Autowired
-    private MercadoriaDepositoRepository mercadoriaDepositoRepository;
+    private RegistroMercadoriaRepository registroMercadoriaRepository;
 
     @GetMapping("/")
     public ResponseEntity<List<DepositoDTO>> getAllDepositos() {
@@ -58,9 +58,9 @@ public class DepositoController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> deleteDeposito(@PathVariable("id") int idDeposito){
-        List<MercadoriaDeposito> mercadoriasDeposito = mercadoriaDepositoRepository.getAllByDeposito(idDeposito);
+        List<RegistroMercadoria> mercadoriasDeposito = registroMercadoriaRepository.getAllByDeposito(idDeposito);
         if(!mercadoriasDeposito.isEmpty()){
-            mercadoriaDepositoRepository.deleteAll(mercadoriasDeposito);
+            registroMercadoriaRepository.deleteAll(mercadoriasDeposito);
         }
         depositoRepository.deleteById(idDeposito);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

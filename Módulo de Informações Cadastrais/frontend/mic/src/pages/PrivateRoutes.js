@@ -5,15 +5,16 @@ import ListaClientes from './administrador/cliente/ListaClientes';
 import ListaDepositos from './administrador/deposito/ListaDepositos';
 import FormularioDeposito from './administrador/deposito/FormularioDeposito';
 import ListaMercadorias from './administrador/mercadoria/ListaMercadorias';
+import AlterarLocalRegistro from "./administrador/mercadoria/AlterarLocalRegistro";
 
 import HomeCliente from './cliente/Home';
-import ListaMercadoriasDeposito from './cliente/mercadoriaDeposito/ListaMercadoriasDeposito';
+import ListaRegistrosMercadorias from './cliente/registroMercadoria/ListaRegistrosMercadorias';
 import ListaDepositosCliente from './cliente/deposito/ListaDepositos';
 import ListaMercadoriasCliente from './cliente/mercadoria/ListaMercadorias';
 import FormularioMercadoria from "./cliente/mercadoria/FormularioMercadoria";
 
 import MinhaConta from "./comum/MinhaConta";
-import FormularioMercadoriasDeposito from "./cliente/mercadoriaDeposito/FormularioMercadoriaDeposito";
+import FormularioRegistroMercadoria from "./cliente/registroMercadoria/FormularioRegistroMercadoria";
 
 const AdmRoutes = () => {
     return (
@@ -22,8 +23,9 @@ const AdmRoutes = () => {
             <Route path="/minhaConta" component={MinhaConta}/>
             <Route path="/listaClientes" component={ListaClientes}/>
             <Route path="/listaDepositos" component={ListaDepositos}/>
-            <Route path="/listaMercadorias" component={ListaMercadorias}/>
+            <Route path="/listaRegistrosMercadorias" exact component={ListaMercadorias}/>
             <Route path="/formularioDeposito" component={FormularioDeposito}/>
+            <Route path="/listaRegistrosMercadorias/local" exact component={AlterarLocalRegistro}/>
         </Switch>
     )
 }
@@ -33,11 +35,11 @@ const ClienteRoutes = () => {
         <Switch>
             <Route path="/minhaConta" component={MinhaConta}/>
             <Route path="/c/home" component={HomeCliente}/>
-            <Route path="/c/listaMercadoriasDeposito" component={ListaMercadoriasDeposito}/>
+            <Route path="/c/listaRegistroMercadorias" component={ListaRegistrosMercadorias}/>
             <Route path="/c/listaDepositos" component={ListaDepositosCliente}/>
             <Route path="/c/listaMercadorias" component={ListaMercadoriasCliente}/>
             <Route path="/c/formularioMercadoria" component={FormularioMercadoria}/>
-            <Route path="/c/formularioMercadoriaDeposito" component={FormularioMercadoriasDeposito}/>
+            <Route path="/c/formularioRegistroMercadoria" component={FormularioRegistroMercadoria}/>
         </Switch>
     )
 }

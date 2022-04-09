@@ -3,7 +3,7 @@ package com.boaentrega.mic.controller;
 import com.boaentrega.mic.domain.dto.MercadoriaDTO;
 import com.boaentrega.mic.domain.entity.*;
 import com.boaentrega.mic.repository.ClienteRepository;
-import com.boaentrega.mic.repository.MercadoriaDepositoRepository;
+import com.boaentrega.mic.repository.RegistroMercadoriaRepository;
 import com.boaentrega.mic.repository.MercadoriaRepository;
 import com.boaentrega.mic.repository.UsuarioRepository;
 import com.google.common.collect.Lists;
@@ -29,7 +29,7 @@ public class MercadoriaController {
     private UsuarioRepository usuarioRepository;
 
     @Autowired
-    private MercadoriaDepositoRepository mercadoriaDepositoRepository;
+    private RegistroMercadoriaRepository registroMercadoriaRepository;
 
     @GetMapping("/usuario/{login}")
     public ResponseEntity<List<MercadoriaDTO>> getMercadoriasByUsuario(@PathVariable("login") String login){
@@ -67,9 +67,9 @@ public class MercadoriaController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> deleteMercadoria(@PathVariable("id") int idMercadoria){
-        List<MercadoriaDeposito> mercadoriasDeposito = mercadoriaDepositoRepository.getAllByMercadoria(idMercadoria);
+        List<RegistroMercadoria> mercadoriasDeposito = registroMercadoriaRepository.getAllByMercadoria(idMercadoria);
         if(!mercadoriasDeposito.isEmpty()){
-            mercadoriaDepositoRepository.deleteAll(mercadoriasDeposito);
+            registroMercadoriaRepository.deleteAll(mercadoriasDeposito);
         }
         mercadoriaRepository.deleteById(idMercadoria);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

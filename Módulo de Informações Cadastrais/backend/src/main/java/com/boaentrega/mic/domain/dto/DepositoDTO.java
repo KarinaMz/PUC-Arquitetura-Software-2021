@@ -9,13 +9,7 @@ public class DepositoDTO {
     private String codigo;
     private String telefone;
 
-    private String cep;
-    private String cidade;
-    private String estado;
-    private String bairro;
-    private String logradouro;
-    private Integer numero;
-    private String complemento;
+    private EnderecoDTO endereco;
 
     public DepositoDTO(){
         super();
@@ -25,13 +19,7 @@ public class DepositoDTO {
         this.id = deposito.getId();
         this.codigo = deposito.getCodigo();
         this.telefone = deposito.getTelefone();
-        this.cep = deposito.getEndereco().getCep();
-        this.cidade = deposito.getEndereco().getCidade();
-        this.estado = deposito.getEndereco().getEstado();
-        this.bairro = deposito.getEndereco().getBairro();
-        this.logradouro = deposito.getEndereco().getLogradouro();
-        this.numero = deposito.getEndereco().getNumero();
-        this.complemento = deposito.getEndereco().getComplemento();
+        this.endereco = new EnderecoDTO(deposito.getEndereco());
     }
 
     public Deposito obterNovoDeposito(){
@@ -44,14 +32,7 @@ public class DepositoDTO {
     public void atualizarDeposito(Deposito deposito){
         deposito.setCodigo(codigo);
         deposito.setTelefone(telefone);
-        Endereco endereco = deposito.getEndereco();
-        endereco.setBairro(bairro);
-        endereco.setCep(cep);
-        endereco.setCidade(cidade);
-        endereco.setComplemento(complemento);
-        endereco.setEstado(estado);
-        endereco.setNumero(numero);
-        endereco.setLogradouro(logradouro);
+        this.endereco.atualizarEndereco(deposito.getEndereco());
     }
 
     public Integer getId() {
@@ -78,59 +59,11 @@ public class DepositoDTO {
         this.telefone = telefone;
     }
 
-    public String getCep() {
-        return cep;
+    public EnderecoDTO getEndereco() {
+        return endereco;
     }
 
-    public void setCep(String cep) {
-        this.cep = cep;
-    }
-
-    public String getCidade() {
-        return cidade;
-    }
-
-    public void setCidade(String cidade) {
-        this.cidade = cidade;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
-    public String getBairro() {
-        return bairro;
-    }
-
-    public void setBairro(String bairro) {
-        this.bairro = bairro;
-    }
-
-    public String getLogradouro() {
-        return logradouro;
-    }
-
-    public void setLogradouro(String logradouro) {
-        this.logradouro = logradouro;
-    }
-
-    public Integer getNumero() {
-        return numero;
-    }
-
-    public void setNumero(Integer numero) {
-        this.numero = numero;
-    }
-
-    public String getComplemento() {
-        return complemento;
-    }
-
-    public void setComplemento(String complemento) {
-        this.complemento = complemento;
+    public void setEndereco(EnderecoDTO endereco) {
+        this.endereco = endereco;
     }
 }
