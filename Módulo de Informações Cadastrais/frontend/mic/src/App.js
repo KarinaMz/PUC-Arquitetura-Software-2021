@@ -4,8 +4,9 @@ import MenuAdm from './pages/administrador/BarraMenuAdm';
 import MenuCliente from './pages/cliente/BarraMenuCliente'
 import { AdmRoutes, ClienteRoutes } from "./pages/PrivateRoutes";
 import { useSelector } from "react-redux";
+import { Redirect } from 'react-router-dom';
 
-function App() {
+const App = () => {
     const perfil = localStorage.perfil;
     const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
     
@@ -29,9 +30,12 @@ function App() {
                         </div>
                     </div>);
             }
-        }
+        } 
         return (
-            <PublicRoutes/>
+            <div>
+                <PublicRoutes/>
+                <Redirect to="/"/>
+            </div>
         );
     }
 
