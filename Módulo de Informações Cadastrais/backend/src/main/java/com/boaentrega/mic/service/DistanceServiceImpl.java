@@ -14,7 +14,7 @@ import java.io.IOException;
 @Service
 public class DistanceServiceImpl {
 
-    public static final String GOOGLE_API_KEY = "AIzaSyA9jhimPIC2vg4N5-LPWeBq_fkNmedPTlQ";
+    public static final String GOOGLE_API_KEY = "-";
     private OkHttpClient client = new OkHttpClient();
 
     public void verificarDistancias(DistanciaDTO dto) throws IOException {
