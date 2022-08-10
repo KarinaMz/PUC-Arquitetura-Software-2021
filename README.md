@@ -1,4 +1,4 @@
-## Trabalho de conclusão do curso de pós-graduação em Arquitetura de Software da PUC-Minas concluído em 2022. 📚 
+## 📚 TCC da Pós-Graduação em Arquitetura de Software - PUC (2020-2022).  
 
 <p>
   O trabalho consistiu em elaborar uma proposta arquitetural para um cenário estipulado. Foi necessário definir os requisitos e restrições arquiteturais, 
